@@ -1,62 +1,90 @@
-# deep-learning-challenge
-Module 21 Report
+# Deep Learning Challenge
+_Module 21 Report_
 
-Overview of the Analysis
-This analysis reviews the accuracy in predicting the likelihood of defaulting on a loan given a specific set of data:
+## Overview of the Analysis
 
-Loan size
-Interest rate
-Borrower income
-Debt to income
-Number of accounts
-Derogatory marks
-Total debt
-To do this I used machine learning. First with the actual set of data consisting of 77,536 rows (75036 healthy loan status, 2500 with high-risk loan status. This will be referenced as "Machine Learning Model 1".
+This analysis reviews the accuracy in predicting the success of crowdfunding through the nonprofit organization Aophabet Soup.  A large dataset was provided to run through neural network and machine learning with different parameters to determine if this method could assist in predicting success accurately given the makeup of the dataset.
 
-A second set of data was compiled using RandomOverSampler to create an equal number of rows for both categories (56277 healthy loan status, 56277 high-risk loan status). This will be referenced as "Machine Learning Model 2".
+The dataset is comprised of 34,299 rows of data and included the following categories:
 
-All other variables were kept consistent between the two models:
+- APPLICATION_TYPE
+- AFFILIATION
+- CLASSIFICATION
+- USE_CASE
+- ORGANIZATION
+- STATUS
+- INCOME_AMT
+- SPECIAL_CONSIDERATIONS
+- ASK_AMT
+- IS_SUCCESSFUL
 
-Standard 75%/25% train_test set
-Logistic regression model
-Results
-Following are the findings from the two models:
+Three test models were run sequentially with minor changes made in an effort to improve accuracy.  All tests were run with "IS_SUCCESSFUL" as the target, and with the EIN and NAME columns removed as they were not impactful to the results.  The variable adjustments are noted in the Results section.
 
-Machine Learning Model 1:
+##Results
 
-Accuracy: 0.9924164259182832
-Confusion Matrix:
-Healthy Loans - 18679, 80
-High-risk Loans - 67, 558
-Classification Report: precision recall f1-score support
-Healthy Loan 1.00 1.00 1.00 18759 High-Risk Loan 0.87 0.89 0.88 625
+###Neural Network Machine Learning Model 1:
 
-accuracy                           0.99     19384
-macro avg 0.94 0.94 0.94 19384 weighted avg 0.99 0.99 0.99 19384
+The first test was run with the following data modifications and ML settings: 
 
-Machine Learning Model 2:
+- Application type data was minimized to only classify types with 500 or more entries
+  - Those with less were classified as "other"
+  - This brought the Application type count down from 17 to 9
+ 
+- Classification data was minimized to only classify those with 1000 or more entries
+  - Those with less were classified as "other"
+  - This brought the Classification count down from 71 to 6
+  
+- Deep neural network settings of: 
+  - 2 hidden layers (1st with 8 nodes, 2nd with 5 nodes)
+  - Training with 75%, Test with 25%
+  - 100 epochs
 
-Accuracy: 0.9952022286421791
-Confusion Matrix:
-Healthy Loans - 18668, 91
-High-risk Loans - 2, 623
-Classification Report: precision recall f1-score support
-Healthy Loan 1.00 1.00 1.00 18759 High-Risk Loan 0.87 1.00 0.93 625
+**loss: .5530 - accuracy: 0.7263 - 490ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy)
 
-accuracy                           1.00     19384
-macro avg 0.94 1.00 0.96 19384 weighted avg 1.00 1.00 1.00 19384
+###Neural Network Machine Learning Model 2:
 
-Precision: Did not change between the two models for Healthy or High-risk
+The second test was run with the following data modifications and ML settings: 
 
-Recall: Improved considerably from .89 for high-risk loans in Model 1 to 1.00 in Model 2
+- Application type data was minimized to only classify types with 500 or more entries
+  - Those with less were classified as "other"
+  - This brought the Application type count down from 17 to 9
+- Classification data was minimized to only classify those with 1000 or more entries
+  - Those with less were classified as "other"
+  - This brought the Classification count down from 71 to 6
+- Deep neural network settings of: 
+  - 3 hidden layers (1st with 16 nodes, 2nd with 8 nodes, 3rd with 8 nodes)
+  - Training with 75%, Test with 25%
+  - 50 epochs
 
-f1-score: Improved from .88 for high-risk loans in Model 1 to .93 in Model 2 (an increase in this would be expected as f1-score is the average of precision and recall)
+**loss: .5518 - accuracy: 0.7259 - 488ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy) 
 
-Macro avg: This is the average for each, precision, recall, and f1-score, across both classes and shows the improvement as mentioned above
+###Neural Network Machine Learning Model 3:
 
-This is intended to provide a balanced score between classes
-Weighted avg: This is the weighted average across classes taking the number of samples in each into account.
+The third test was run with the following data modifications and ML settings: 
 
-In this case, it more closely matches Healthy loans due to the much larger class size
-Summary
-While the two models don't appear to vary much, as the Healthy loan predication rate for both is 100%, there are some significant improvements to High-risk loan predications in Model 2. This improvement can be attributed to the oversampling adding volume to the training and thereby improving the prediction of High-risk loans. For this reason, I would recommend using as much data as possible when training machine learning to improve accuracy as much as possible.
+- Application type data was minimized to only classify types with 500 or more entries
+  - Those with less were classified as "other"
+  - This brought the Application type count down from 17 to 9
+- Classification data was minimized to only classify those with 1000 or more entries
+  - Those with less were classified as "other"
+  - This brought the Classification count down from 71 to 6
+- Ask Amount data was binned into the following categories, minimizing the individual count of 8747 count to the 9 groups:
+  - 0-5k         25398
+  - 10k-50k       2398
+  - 100k-500k     2304
+  - 50k-100k      1423
+  - 1M-10M        1165
+  - 500k-1M        650
+  - 5k-10k         549
+  - 10M-100M       311
+  - 100M+          101
+- Deep neural network settings of: 
+  - 3 hidden layers (1st with 16 nodes, 2nd with 8 nodes, 3rd with 8 nodes)
+  - Training with 75%, Test with 25%
+  - 100 epochs
+
+**loss: .5509 - accuracy: 0.7264 - 523ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy) 
+
+##Summary
+
+All three tests came back very similarly with 72.63%, 72.59%, 72.64% accuracy. With some additional organization and purposeful encoding into numerical values (to avoid having to encode text to numerical values which is not always efficient or effective), it is possible that this method may be helpful in the future.  However, as it stands with this dataset and organization, even after binning and encoding text objects, I do not have a lot of confidence in accurately predicting success.
