@@ -20,9 +20,9 @@ The dataset is comprised of 34,299 rows of data and included the following categ
 
 Three test models were run sequentially with minor changes made in an effort to improve accuracy.  All tests were run with "IS_SUCCESSFUL" as the target, and with the EIN and NAME columns removed as they were not impactful to the results.  The variable adjustments are noted in the Results section.
 
-##Results
+## Results
 
-###Neural Network Machine Learning Model 1:
+### Neural Network Machine Learning Model 1:
 
 The first test was run with the following data modifications and ML settings: 
 
@@ -41,7 +41,7 @@ The first test was run with the following data modifications and ML settings:
 
 **loss: .5530 - accuracy: 0.7263 - 490ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy)
 
-###Neural Network Machine Learning Model 2:
+### Neural Network Machine Learning Model 2:
 
 The second test was run with the following data modifications and ML settings: 
 
@@ -58,7 +58,7 @@ The second test was run with the following data modifications and ML settings:
 
 **loss: .5518 - accuracy: 0.7259 - 488ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy) 
 
-###Neural Network Machine Learning Model 3:
+### Neural Network Machine Learning Model 3:
 
 The third test was run with the following data modifications and ML settings: 
 
@@ -85,6 +85,6 @@ The third test was run with the following data modifications and ML settings:
 
 **loss: .5509 - accuracy: 0.7264 - 523ms/epoch - 2ms/step**  (Does not meet the goal of minimum 75% accuracy) 
 
-##Summary
+## Summary
 
 All three tests came back very similarly with 72.63%, 72.59%, 72.64% accuracy. With some additional organization and purposeful encoding into numerical values (to avoid having to encode text to numerical values which is not always efficient or effective), it is possible that this method may be helpful in the future.  However, as it stands with this dataset and organization, even after binning and encoding text objects, I do not have a lot of confidence in accurately predicting success.
